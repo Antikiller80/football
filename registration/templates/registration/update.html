@@ -1,0 +1,51 @@
+{% extends 'main/base_2col.html' %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}<title>Обновление профиля</title> {% endblock %}
+
+</head>
+<body>
+{% block content %}
+<div class="row">
+  <div class="col-sm-7">
+{% if messages %}
+{% for message in messages %}
+{{message}}<br>
+{% endfor %}
+{% endif %}
+<form action="" method="post">
+    {% csrf_token %}
+    <div class="form-group">
+
+  <label for="location">Страна:</label>
+  <input type="text" class="form-control" id="location" placeholder="Страна" name="location">
+
+</div>
+    <div class="form-group">
+
+  <label for="birth_date">День рождение:</label>
+  <input type="text" class="form-control" id="birth_date" placeholder="День рождение (год-месяц-день)" name="birth_date">
+
+</div>
+    <div class="form-group">
+
+  <label for="favorite_team">Любимая команда:</label>
+  <input type="text" class="form-control" id="favorite_team" placeholder="Любимая команда" name="favorite_team">
+
+</div>
+    <div class="form-group">
+
+  <label for="favorite_player">Любимай игрок:</label>
+  <input type="text" class="form-control" id="favorite_player" placeholder="Любимый игрок" name="favorite_player">
+
+</div>
+    <input type="submit" value="Обновить"  class="clearfix">
+</form>
+  </div>
+</div>
+{% endblock %}
+</body>
+</html>

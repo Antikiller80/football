@@ -1,0 +1,82 @@
+{% extends 'main/base_2col.html' %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block title %} <title>Championship </title> {% endblock %}
+
+</head>
+<body>
+{% block content %}
+<ul>
+{{ championship.name_championship }}
+     {{ championship.description|safe }}
+{% for club in clubs %}
+    {% for penalty in club.penalties.all %}
+    {{ penalty.reason|safe }}<br>
+    {% endfor %}
+{% endfor %}
+
+
+
+
+    <table class="table">
+    <tr>
+        <th>#</th>
+        <th> Команда</th>
+        <th>И</th>
+        <th>В</th>
+        <th>Н</th>
+        <th>П</th>
+        <th>Мячи</th>
+        <th>Раз</th>
+        <th>P</th>
+    </tr>
+
+{% for club in clubs %}
+
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td><a href="{% url 'clubview' club.id %}"> {{ club.name }} </a></td>
+            <td>{{ club.matches_sum }}</td>
+            <td>{{ club.winned_matches }}</td>
+            <td>{{ club.drawed_matches }}</td>
+            <td>{{ club.losed_matches }}</td>
+            <td>{{ club.goals_scored }} - {{ club.goals_missed }}</td>
+            <td>{{ club.goal_difference }}</td>
+            <th>{{ club.points }}</th>
+        </tr>
+
+        {% endfor %}
+    </table>
+</ul>
+
+
+
+{% regroup tour_detail by tour as tour_list %}
+
+       <div class="panel-group" id="accordion">
+
+
+           {% for tour in tour_list %}
+              <div class="panel panel-default">
+        <div class="panel-heading"><a data-toggle="collapse" data-parent="#accordion" href="#{{ tour.grouper }}"> Тур:  {{ tour.grouper }}</a> </div>
+ <div id="{{ tour.grouper }}" class="panel-collapse collapse ">
+
+            {% for match in tour.list %}
+
+     <div class="panel-body">
+         <a href="{% url 'matchesview' match.id %}">{{ match.home_club }} {{ match.goals_home }} - {{ match.goals_guest }}  {{ match.guest_club.name }}</a>
+ </div>
+{% endfor %}
+
+    </div>
+</div>
+        {% endfor %}</div>
+
+
+{% endblock %}
+</body>
+</html>

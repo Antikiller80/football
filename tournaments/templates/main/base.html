@@ -1,0 +1,113 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block head %}
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
+    <!--<link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">-->
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap-theme.css' %}">
+    <!--<link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap-theme.min.css' %}">-->
+    <script src="{% static 'bootstrap/jquery-3.2.1.min.js'%}"></script>
+  <script src="{% static 'bootstrap/js/bootstrap.js'%}"></script>
+  <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="https://getbootstrap.com/assets/js/ie10-viewport-bug-workaround.js"></script>
+    <script src="https://getbootstrap.com/dist/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	{% block title %}
+    <title></title>
+    {% endblock %}
+
+{% endblock %}
+</head>
+<body>
+<div class="container">
+
+
+    <div class="logo" ><img src="{% static 'logo/bnr.jpg' %}" width="100%"/></div>
+
+     <style type="text/css">
+   #block1 {
+    background: #336633;
+   }
+</style>
+<nav class="navbar navbar-default " >
+  <div class="container-fluid">
+<div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="{% url 'index_2' %}">FootballFan</a>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+            <li><a href="{% url 'championshipview' 1 %}">Таблица </a></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Статьи <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+{% for category in categors %}
+                     <li> <a href="{% url 'detail' category.id %}">{{ category.name }}.{{ category.description }}</a></li>
+{% endfor %}
+                </ul>
+                </li>
+            </ul>
+              <!--<li><a href="{% url 'login' %}">{% if request.user.is_authenticated %}-->
+      <!--Привет {{ request.user }}!-->
+<!--<li><a href="{% url 'logout' %}">Выход</a>  </li>-->
+<!--{% else %}-->
+<!--Войти-->
+<!--{% endif %}</a></li>-->
+        <ul class="nav navbar-nav navbar-right">
+        <li><a href="{% url 'login' %}">{% if request.user.is_authenticated %}
+            <li><a href="{% url 'logout' %}">Выход</a></li>
+            <!--<li><a href="{% url 'register_user' %}">Регистрация</a>-->
+{% else %}
+Войти
+            {% endif %}</a></li>
+
+{% if request.user.is_authenticated %}
+        <li class="dropdown">
+          <a href="{% url 'register_user' %}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ request.user }} <span class="caret"></span></a>
+
+          <ul class="dropdown-menu">
+            <li><a href="{% url 'profileview' user.id %}">Просмотр профиля</a></li>
+            <li><a href="{% url 'profileupdate' user.id %}">Редактирование профиля</a></li>
+
+
+          </ul>
+
+        </li>
+            {% else %}
+            <li><a href="{% url 'register_user' %}">Регистрация</a>
+            {% endif %}
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+{% block page %}
+
+    {% block content %}
+
+	{% endblock %}
+
+      {% block sidebar %}
+
+	{% block tags %}
+	{% endblock %}
+
+{% endblock %}
+
+{% endblock %}
+
+
+{% block footer %}
+	{% block copyright %}
+	{% endblock %}
+{% endblock %}
+    </div>
+</body>
+</html>

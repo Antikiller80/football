@@ -1,0 +1,78 @@
+{% extends 'main/base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title1</title>
+</head>
+<body>
+{% block page %}
+
+<div class="row">
+	<div class="col-sm-9">
+	<div class="well" >{% block content %}
+        {% endblock %}</div>
+    </div>
+
+   <div class="col-sm-3">
+
+	{% block sidebar %}
+
+
+<div class="well">
+
+
+
+<table class="table table-bordered" >
+    <tr>
+        <th>#</th>
+        <th align="center">КОМАНДЫ</th>
+        <th>И</th>
+
+        <th>О</th>
+    </tr>
+
+{% for club in table %}
+
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td><a href="{% url 'clubview' club.id %}"> {{ club.name }} </a></td>
+            <td>{{ club.matches_sum }}</td>
+            <th>{{ club.points }}</th>
+        </tr>
+
+        {% endfor %}
+    </table>
+
+<ul>
+	{% for art in arti %}
+    <li><a href="{% url 'detail_article' art.id %}"> {{ art.name }}</a> </li>
+	{% endfor %}
+</ul>
+
+<table class="table table-bordered" >
+    <tr>
+        <th>#</th>
+        <th align="center">Бомбардиры</th>
+        <th>Г</th>
+    </tr>
+
+{% for player in table_players %}
+
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td><a href="{% url 'playerview' player.id %}"> {{ player.name }} </a></td>
+            <th>{{ player.goals }}</th>
+        </tr>
+
+        {% endfor %}
+    </table>
+
+</div>
+	{% endblock %}
+
+   </div>
+</div>
+{% endblock %}
+</body>
+</html>

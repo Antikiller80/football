@@ -1,0 +1,45 @@
+{% extends 'main/base_2col.html' %}
+{% block content %}
+<style>
+   .leftimg {
+    float:left; /* Выравнивание по левому краю */
+    margin: 20px 20px 20px 20px; /* Отступы вокруг картинки */
+    display: inline-block;
+    border-radius: 0;
+    border-width: 1px 0 0;
+    box-sizing: border-box;
+   }
+
+  </style>
+<table class="table table-condensed">
+    <tr ><td bgcolor="#b1eb58" colspan="2">Матчи на сегодня</td></tr>
+
+{% for match in match_day %}
+     <tr>   <td width="20%"> {{ match.match_date }}</td><td><a href="{% url 'matchesview' match.id %}"> <img src="{{ match.home_club.get_photo }}" width="15" height="15" /> {{ match.home_club }} - <img src="{{ match.guest_club.get_photo }}" width="15" height="15" /> {{ match.guest_club }}</a><br> </td>
+</tr>{% endfor %}
+</table>
+<div class="row">
+
+	{% for article in artiii %}
+<div class="col-md-12">
+   <img src="{{ article.image.url }}" class="leftimg" style="width: 128px; height: 128px;"/>
+    <a href="{% url 'detail_article' article.id %}"><font color="red"> <b>{{ article.name }}</b></font></a><br>
+    {{ article.category.name }}.{{ article.category.description }}  <br>
+   {{ article.content|safe|truncatewords:"125" }}
+    <a href="{% url 'detail_article' article.id %}"> Подробее.. </a><br>
+    <center> <hr size="10" color="red" width=70% >   </center>
+ </div>
+
+    {% endfor %}
+ </div>
+
+{% if artiii.has_previous %}
+<a href="{% url 'index_2' %}?page={{ artiii.previous_page_number }}">Назад</a>
+{% endif %}
+
+Страница {{ artiii.number }} из {{ artiii.paginator.num_pages }}
+
+{% if artiii.has_next %}
+<a href="{% url 'index_2' %}?page={{ artiii.next_page_number }}">Вперед</a>
+{% endif %}
+{% endblock %}

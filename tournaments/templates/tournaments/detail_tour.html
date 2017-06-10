@@ -1,0 +1,24 @@
+{% extends 'main/base_2col.html' %}
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% block content %}
+<ul>
+
+
+    {% for match in tour_number %}
+
+    <li>
+ <a href="{% url 'matchesview' match.id %}">   {{ match.home_club }} {% if   match.goals_home == None %} {% else %} {{ match.goals_home }} {% endif %} -  {% if   match.goals_guest == None %} {% else %} {{ match.goals_guest }} {% endif %} {{ match.guest_club }} </a>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}
+</body>
+</html>

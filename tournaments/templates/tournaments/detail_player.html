@@ -1,0 +1,39 @@
+{% extends 'main/base_2col.html' %}
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Player</title>
+</head>
+<body>
+{% block content %}
+<style>
+   .leftimg {
+    float:left; /* Выравнивание по левому краю */
+    margin: 0px 20px 20px 0px; /* Отступы вокруг картинки */
+    display: inline-block;
+    border-radius: 0;
+    border-width: 1px 0 0;
+    box-sizing: border-box;
+    }
+    .clubname {
+    margin: 20px 80px 20px 80px; /* Отступы вокруг  */
+    }
+    </style>
+
+<img src="{{ player.get_photo }}" width="150" height="150" class="leftimg"/>
+<div class="clubname"> Имя: {{ player.name }}<br>
+Позиция: {{ player.get_position_display }}<br>
+Номер: {{ player.number }}<br>
+Гражданство: {{ player.citizenship }}<br>
+День рождения: {{ player.birth_date }}<br>
+Текущий клуб: {{ player.get_last_club }}
+</div>
+
+
+
+{% endblock %}
+</body>
+</html>

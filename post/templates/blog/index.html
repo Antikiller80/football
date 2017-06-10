@@ -1,0 +1,19 @@
+
+{% block content %}
+<ul>
+	{% for category in categorys %}
+    <li> <a href="{% url 'detail' category.id %}"> {{ category.name }}.{{ category.description }}</a></li>
+
+    {% endfor %}
+    </ul>
+
+{% if categorys.has_previous %}
+<a href="{% url 'index' %}?page={{ categorys.previous_page_number }}">Назад</a>
+{% endif %}
+
+Страница {{ categorys.number }} из {{ categorys.paginator.num_pages }}
+
+{% if categorys.has_next %}
+<a href="{% url 'index' %}?page={{ categorys.next_page_number }}">Вперед</a>
+{% endif %}
+{% endblock %}

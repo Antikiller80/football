@@ -1,0 +1,36 @@
+{% extends 'main/base_2col.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}<title>Профиль</title> {% endblock %}
+</head>
+<body>
+{% block content %}
+
+<li><a href="{% url 'login' %}">{% if request.user.is_authenticated %}
+Привет {{ request.user }}!</a>
+
+<li>Страна: {{ profile.location }}</li>
+<li>День рождения: {{ profile.birth_date }}</li>
+Любимые команды:
+{% for favorite_team in profile.favorite_teams.all %}
+<li><a href="{% url 'clubview' favorite_team.id %}">{{ favorite_team.name }}</a></li>
+{% endfor %}<br>
+Любимае игроки:
+{% for favorite_player in profile.favorite_players.all %}
+<li><a href="{% url 'playerview' favorite_player.id %}">{{ favorite_player.name }}</a></li>
+{% endfor %}
+
+
+<li><a href="{% url 'logout' %}">Выход</a>  </li>
+{% else %}
+Войти
+{% endif %}</li>
+
+</ul>
+
+{% endblock %}
+
+</body>
+</html>

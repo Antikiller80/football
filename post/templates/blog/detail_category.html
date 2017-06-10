@@ -1,0 +1,11 @@
+{% extends 'main/base_2col.html' %}
+{% block content %}
+
+<ul>
+
+	{% for article in category.categores.all %}
+	<li><a href="{% url 'detail_article' article.id %}">{{ article.name }}</a></li>
+
+    {% endfor %}
+</ul>
+{% endblock %}

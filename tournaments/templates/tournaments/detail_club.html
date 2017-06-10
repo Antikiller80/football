@@ -1,0 +1,97 @@
+{% extends 'main/base_2col.html' %}
+{% load tournaments_tags %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}<title>{{ club.name }}</title> {% endblock %}
+
+</head>
+<body>
+{% block content %}
+<style>
+   .leftimg {
+    float:left; /* Выравнивание по левому краю */
+    margin: 20px 20px 20px 20px; /* Отступы вокруг картинки */
+    display: inline-block;
+    border-radius: 0;
+    border-width: 1px 0 0;
+    box-sizing: border-box;
+    }
+    .clubname {
+    margin: 60px 120px 20px 120px; /* Отступы вокруг  */
+    }
+
+
+  </style>
+<img src="{{ club.get_photo }}" width="150" height="150" class="leftimg"/>
+<div class="clubname" > Название клуба: {{ club.name }}<br>
+Главный тренер: {{ club.main_coach }}</div>
+    <table class="table table-bordered">
+     {% regroup club.players.all by position as players_list %}
+
+                {% for position in players_list %}
+<tr>
+        <th> Номер</th>
+        <th> {{ position.grouper|get_position_display }}</th>
+        <th>Дата рож.</th>
+        <th>Гражданство</th>
+        <th bgcolor="red">К</th>
+        <th bgcolor="yellow">Ж</th>
+        <th >Голы</th>
+        <th >матчи</th>
+
+    </tr>
+        {% for player in position.list %}
+<tr>
+    <td>{{ player.number }}</td>
+    <td><a href="{% url 'playerview' player.id %}"> {{ player.name }} </a></td>
+    <td>{{ player.birth_date }}</td>
+            <td>{{ player.citizenship }}</td>
+            <td> {{ player.red_card }} </td>
+            <td> {{ player.yellow_card }} </td>
+            <td> {{ player.goals }} </td>
+            <td> {{ player.matches_played }} </td>
+
+</tr>
+        {% endfor %}
+
+    {% endfor %}</table>
+
+
+
+
+
+
+
+    <li>Дата основания: {{ club.based }}</li>
+    <li>Цвет: {{ club.color }}</li>
+    <li>Стадион: {{ club.stadium }}</li>
+<li> Достижения: {{ club.achievement|safe }}</li>
+</ul>
+
+
+<!--вывод всех игр(сделать по конкретному клубу)-->
+<table class="table table-striped">
+    <tr>
+        <td>Тур</td>
+        <td>Дата</td>
+        <td>Матч</td>
+    </tr>
+    {% for match in matches %}
+
+    <tr>
+        <td>{{ match.tour }}</td>
+        <td>{{ match.match_date }} </td>
+        <td><a href="{% url 'matchesview' match.id %}"> {{ match.home_club }} {% if match.goals_home == None %} {% else %} {{ match.goals_home }} {% endif %} -  {% if   match.goals_guest == None %} {% else %} {{ match.goals_guest }} {% endif %}  {{ match.guest_club }}</a></td>
+
+    </tr>
+    {% endfor %}
+
+</table>
+
+{% endblock %}
+
+</body>
+</html>

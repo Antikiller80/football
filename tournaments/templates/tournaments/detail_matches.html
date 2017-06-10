@@ -1,0 +1,44 @@
+{% extends 'main/base_2col.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}<title>Матч {{ matches.home_club }} vs {{ matches.guest_club }}</title> {% endblock %}
+</head>
+<body>
+{% block content %}
+<table class="table table table-hover">
+<tr>
+    <td colspan="2">{{ matches.сhampionship.name_championship }}   Тур:{{ matches.tour }}<br> Дата: {{ matches.match_date }}</td>
+</tr>
+
+<tr>
+      <td colspan="2" align="center">  {{ matches.home_club }} {% if   matches.goals_home == None %} {% else %} {{ matches.goals_home }} {% endif %} -
+          {% if   matches.goals_guest == None %} {% else %} {{ matches.goals_guest }} {% endif %} {{ matches.guest_club }}</td>
+</tr>
+<tr>
+    <td align="center">{{ matches.home_club }}</td>
+    <td align="center">{{ matches.guest_club }}</td>
+</tr>
+
+ {% for players in teams %}
+<tr><td align="center">{{players.0}}</td><td align="center">{{players.1}}</td>
+</tr>
+{% endfor %}
+
+
+
+</table>
+<table class="table table-hover">
+    <tr ><td colspan="3" >События в матче</td> </tr>
+{% for match in matches.events.all %}
+    <tr>
+        <td >{{ match.get_event_match_display }}</td>
+        <td align="left">{{ match.player }}</td>
+        <td align="left">{{ match.event_time }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
+</body>
+</html>
