@@ -141,3 +141,9 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_SSL = True
 
 ADMIN_EMAIL = 'vbelyasov@gmail.com'
+
+
+try:
+    from .settings_foo import *
+except:
+    pass
