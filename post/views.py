@@ -3,20 +3,6 @@ from .models import Article, Category
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
-def index(request):
-    categorys = Category.objects.all()
-    paginator = Paginator(categorys, 4)
-    page = request.GET.get('page')
-    try:
-        categorys = paginator.page(page)
-    except EmptyPage:
-        categorys = paginator.page(1)
-    except PageNotAnInteger:
-        categorys = paginator.page(1)
-    context = {'categorys': categorys}
-    return render(request, 'blog/index.html', context)
-
-
 def detail_category(request, id=None):
     category = Category.objects.get(id=id)
     context = {'category': category}

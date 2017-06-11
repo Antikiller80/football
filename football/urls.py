@@ -18,7 +18,10 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 
+from post import views
+
 urlpatterns = [
+    url(r'^$', views.index_2, name='index_2'),
     url(r'^registration/', include('registration.urls')),
     url(r'^tournaments/', include('tournaments.urls')),
     url(r'^post/', include('post.urls')),
