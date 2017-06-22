@@ -65,7 +65,7 @@
 
 
 
-    <li>Дата основания: {{ club.based }}</li>
+    <li>Дата основания: {{ club.based|date:"Y" }}</li>
     <li>Цвет: {{ club.color }}</li>
     <li>Стадион: {{ club.stadium }}</li>
 <li> Достижения: {{ club.achievement|safe }}</li>
