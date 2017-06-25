@@ -29,7 +29,7 @@
 <div class="clubname" > Название клуба: {{ club.name }}<br>
 Главный тренер: {{ club.main_coach }}</div>
     <table class="table table-bordered">
-     {% regroup club.players.all by position as players_list %}
+     {% regroup club.players.all|dictsort:"get_position_display" by position as players_list %}
 
                 {% for position in players_list %}
 <tr>
@@ -42,7 +42,7 @@
         <th >Голы</th>
         <th >матчи</th>
 
-    </tr>
+</tr>
         {% for player in position.list %}
 <tr>
     <td>{{ player.number }}</td>

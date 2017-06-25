@@ -15,6 +15,7 @@ class MatchAdmin(admin.ModelAdmin):
     fields = ('winner_command', 'home_club', 'guest_club', 'home_players', 'guest_players', 'сhampionship', 'tour', 'match_date', 'goals_home', 'goals_guest')
     readonly_fields = ('winner_command', )
     list_display = ('tour', 'match_date', 'сhampionship',  "score", )
+    list_filter = ('tour', )
 
     def winner_command(self, obj):
         return "Ничья" if obj.win_club == "draw" else obj.win_club

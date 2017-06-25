@@ -141,7 +141,6 @@ class Club(models.Model):
         return self.goals_scored - self.goals_missed
 
 
-
 class Matches(models.Model):
     home_club = models.ForeignKey(Club, related_name='home_club', blank=True, verbose_name='Домашний клуб')
     guest_club = models.ForeignKey(Club, related_name='guest_club', blank=True, verbose_name='Гостевой клуб')
